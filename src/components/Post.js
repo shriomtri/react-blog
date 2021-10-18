@@ -20,7 +20,8 @@ export default class Post extends PureComponent {
     post: PropTypes.shape({
       content: PropTypes.string,
       date: PropTypes.instanceOf(Date),
-      title: PropTypes.string,
+      postTitle: PropTypes.string,
+      postLongDescription: PropTypes.array,
     }),
     slug: PropTypes.string.isRequired,
   };
@@ -42,16 +43,16 @@ export default class Post extends PureComponent {
   };
 
   _renderPost = () => {
-    const { title, date, content } = this.props.post;
+    const { postTitle, postLongDescription } = this.props.post;
     return (
       <Paper zDepth={0} style={paperStyle}>
         <article>
-          <h1>{title}</h1>
-          <time dateTime={date}>{moment(date).fromNow()}</time>
+          <h1>{postTitle}</h1>
+          {/* <time dateTime={date}>{moment(date).fromNow()}</time> */}
           <br />
           <br />
           <Divider />
-          {content && content
+          {postLongDescription.length > 0 && postLongDescription.join('\n')
             .split('\n')
             .map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </article>

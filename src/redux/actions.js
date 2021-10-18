@@ -1,3 +1,4 @@
+import axios from 'axios';
 import faker from 'faker';
 import { capitalizeWords } from '../helpers/utilities';
 
@@ -28,6 +29,7 @@ const recentDates = Array(50)
  * @param {Object} [options]
  */
 export const receivePosts = (count = 1, options = {}) => {
+
   const posts = Array(count)
     .fill()
     .map(() => {
@@ -56,7 +58,18 @@ const POST_COUNT = 10;
 export const fetchPosts = () => {
   return dispatch => {
     // emulate api request
-    setTimeout(() => dispatch(receivePosts(POST_COUNT)), 1000);
+    axios.get(
+      `https://dev-keetabikeeda.herokuapp.com/posts/v1?perPage=${POST_COUNT}&pageNumber=2`, 
+      { crossDomain: true, headers: { 'Content-Type': 'application/json'} }
+    ).then(response => { 
+      const data = {
+        type: RECEIVE_POSTS,
+        posts: response.data.data,
+      };
+      dispatch(data);
+    });
+
+    // setTimeout(() => dispatch(receivePosts(POST_COUNT)), 1000);
   };
 };
 
@@ -69,6 +82,17 @@ export const fetchPosts = () => {
 export const fetchPost = (id, slug) => {
   return dispatch => {
     // emulate api request
-    setTimeout(() => dispatch(receivePosts(1, { id, slug })), 1000);
+    axios.get(
+      `https://dev-keetabikeeda.herokuapp.com/posts/v1/${slug}`, 
+      { crossDomain: true, headers: { 'Content-Type': 'application/json'} }
+    ).then(response => { 
+      const data = {
+        type: RECEIVE_POSTS,
+        posts: [response.data.data],
+      };
+      dispatch(data);
+    });
+
+    // setTimeout(() => dispatch(receivePosts(1, { id, slug })), 1000);
   };
 };

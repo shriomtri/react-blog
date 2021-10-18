@@ -31,20 +31,20 @@ export default class PostList extends PureComponent {
     return (
       <div>
         {/* posts */}
-        {posts.map(({ id, title, summary, date, slug }, index) => (
+        {posts.map(({ _id, postTitle, postSmallDescription, meta }, index) => (
           <List key={index}>
             <Link
-              to={`/posts/${id}/${slug}`}
+              to={`/posts/${meta.slug}`}
               style={{ textDecoration: 'none' }}
             >
               <ListItem>
                 <article style={{ lineHeight: 1.35 }}>
                   <h2>
-                    <strong>{title}</strong>
+                    <strong>{postTitle}</strong>
                   </h2>
-                  <p>{truncate(summary, TRUNCATION_LIMIT)}&hellip;</p>
+                  <p>{truncate(postSmallDescription.join('\n'), TRUNCATION_LIMIT)}&hellip;</p>
                   <div style={{ textAlign: 'right' }}>
-                    <time dateTime={date}>{moment(date).fromNow()}</time>
+                    {/* <time dateTime={date}>{moment(date).fromNow()}</time> */}
                   </div>
                 </article>
               </ListItem>

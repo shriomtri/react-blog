@@ -28,7 +28,7 @@ export default class App extends PureComponent {
               {/* content */}
               <Switch>
                 <Route exact path="/" component={PostListContainer} />
-                <Route path="/posts/:id/:slug" component={PostContainer} />
+                <Route path="/posts/:slug" component={PostContainer} />
 
                 {/* catch-all redirects to home */}
                 <Route render={this._redirectToHome} />

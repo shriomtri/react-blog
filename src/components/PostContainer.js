@@ -4,9 +4,9 @@ import { fetchPost } from '../redux/actions';
 import Post from './Post';
 
 const mapStateToProps = (state, ownProps) => {
-  const { match: { params: { id, slug } } } = ownProps;
-  const post = find(state.posts.items, { id });
-  return { id, post, slug };
+  const { match: { params: { slug } } } = ownProps;
+  const post = state.posts.items[0];
+  return { post, slug };
 };
 
 const mapDispatchToProps = dispatch => ({
